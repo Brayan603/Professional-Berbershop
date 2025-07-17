@@ -3,53 +3,352 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BarberX - Home</title>
-  
-  <!-- Meta description for search engines -->
-  <meta name="description" content="BarberX offers fresh cuts and classic style. Book your appointment today for expert grooming services in a comfortable and professional barbershop." />
-  
-  <!-- Meta keywords (optional, minimal impact but can help) -->
-  <meta name="keywords" content="barber, barber shop, haircuts, grooming, men’s style, appointments, BarberX, classic cuts, professional barbers" />
-  
-  <!-- Author -->
-  <meta name="author" content="BarberX" />
+  <title>Professional Barber</title>
+  <link rel="icon" href="Professional Barber Logo.jpg" type="image/x-icon" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fafafa, #e0e0e0);
+      color: #222;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
 
-  <link rel="stylesheet" href="Styles.css" />
+    .header {
+      background-color: #111;
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .brand-name {
+      color: #ffcc00;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .nav-menu a {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #ffcc00;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: #ffcc00;
+    }
+
+    .hero {
+      height: 60vh;
+      background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
+                  url('https://images.unsplash.com/photo-1604132039472-d681b45e1db3?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ffcc00;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+
+    .hero .btn {
+      margin-top: 2rem;
+      background-color: #ffcc00;
+      color: #111;
+      padding: 0.8rem 1.5rem;
+      width: 130px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .hero .btn:hover {
+      background-color: #e6b800;
+    }
+
+    .gallery-section {
+      padding: 20px 30px;
+      background: #f8f8f8;
+      text-align: center;
+    }
+
+    .gallery-section h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #222;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 390px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.8s ease, box-shadow 0.4s ease;
+    }
+
+    .gallery img:hover {
+      transform: rotateY(180deg);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .view-gallery-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #ffcc00;
+      color: #111;
+      padding: 0.7rem 1.5rem;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .view-gallery-btn:hover {
+      background-color: #e6b800;
+    }
+
+    .why-choose {
+      padding: 4rem 2rem;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    .why-choose h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .feature-box {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    .feature-box h3 {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .feature-box p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .hamburger {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 1600;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #111;
+      padding-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: right 0.3s ease;
+      z-index: 1500;
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    .sidebar a {
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #ffcc00;
+      color: #111;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+      .hamburger {
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Hamburger Button -->
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <a href="homepage.html" class="active">Home</a>
+    <a href="Services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="Book A Service.html">Book Now</a>
+  </nav>
+
   <!-- Header -->
   <header class="header">
-    <nav class="nav-menu" role="navigation" aria-label="Main navigation">
-      <a href="homepage.html" class="active">Home</a>
-      <a href="Services.html">Services</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="Book A Service.html">Book Now</a>
-    </nav>
+    <div class="header-content">
+      <div class="logo-area">
+        <img src="Professional Barber Logo.jpg" alt="BarberX Logo" class="logo" />
+        <span class="brand-name">Professional Barber</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="homepage.html" class="active">Home</a>
+        <a href="Services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="Book A Service.html">Book Now</a>
+      </nav>
+    </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
     <h1>Fresh Cuts. Classic Style.</h1>
-    <p>Step into BarberX — where tradition meets modern grooming. Book your appointment today and experience excellence in every cut.</p>
-    <a href="services.html" class="btn" aria-label="Book a BarberX service">Book Now</a>
+    <p>
+      At <strong>Professional Barber</strong>, we don’t just cut hair — we craft confidence.
+      Whether you're here for a clean fade, a sharp beard lineup, or a total style transformation,
+      you’ve entered a place of precision, personality, and passion.
+    </p>
+    <a href="Book A Service.html" class="btn">Book Now</a>
   </section>
 
   <!-- Gallery Section -->
-  <section class="gallery-section" aria-label="Our Styles Gallery">
+  <section class="gallery-section">
     <h2>Our Styles Gallery</h2>
     <div class="gallery">
       <img src="Berber Style 1.jpg" alt="Barber Style 1" />
       <img src="Berber Style 2.jpg" alt="Barber Style 2" />
       <img src="Berber Style 3.jpg" alt="Barber Style 3" />
       <img src="Berber Style 4.jpg" alt="Barber Style 4" />
-      <img src="Berber Style 5.jpg" alt="Barber Style 5" />
     </div>
+    <a href="gallery.html" class="view-gallery-btn">View Full Gallery</a>
   </section>
 
-  <!-- Why Choose Us -->
-  <section class="why-choose" aria-label="Reasons to Choose BarberX">
+  <!-- Why Choose Us Section -->
+  <section class="why-choose">
     <h2>Why Choose BarberX?</h2>
     <div class="features">
       <div class="feature-box">
@@ -63,17 +362,28 @@
         <p>We value your time with punctual services and easy bookings.</p>
       </div>
       <div class="feature-box">
-        <img src="https://img.icons8.com/ios-filled/50/000000/chair.png" alt="Barber Chair Icon" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/chair.png" alt="Chair Icon" />
         <h3>Comfortable Space</h3>
         <p>Relax in a clean, modern barbershop atmosphere built for comfort.</p>
       </div>
     </div>
   </section>
 
-  <!-- Footer Section -->
+  <!-- Footer -->
   <footer>
     &copy; 2025 Professional Barber. All rights reserved
   </footer>
+
+  <!-- Sidebar Toggle Script -->
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!expanded));
+    });
+  </script>
 
 </body>
 </html>
