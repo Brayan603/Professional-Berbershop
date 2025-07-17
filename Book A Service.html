@@ -3,56 +3,342 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book A Service</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Styles.css" />
+  <title>Book A Service - BarberX</title>
+  <link rel="icon" href="Professional Barber Logo.jpg" type="image/x-icon" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fafafa, #e0e0e0);
+      color: #222;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    /* Header */
+    .header {
+      background-color: #111;
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .brand-name {
+      color: #ffcc00;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-menu a {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #ffcc00;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: #ffcc00;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 1600;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #111;
+      padding-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: right 0.3s ease;
+      z-index: 1500;
+    }
+
+    .sidebar a {
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #ffcc00;
+      color: #111;
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .header-content {
+        justify-content: space-between;
+      }
+    }
+
+    .booking-section {
+      max-width: 700px;
+      margin: 4rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .booking-section h2 {
+      color: #111;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .booking-form label {
+      font-weight: 600;
+    }
+
+    .booking-form input,
+    .booking-form select {
+      padding: 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .booking-form button {
+      background-color: #ffcc00;
+      color: #111;
+      padding: 1rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .booking-form button:hover {
+      background-color: #e6b800;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #fff;
+      background: #111;
+      margin-top: auto;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header Navigation -->
+  <!-- Hamburger -->
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <a href="homepage.html">Home</a>
+    <a href="Services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="Book A Service.html" class="active">Book Now</a>
+  </nav>
+
+  <!-- Header -->
   <header class="header">
-    <nav class="nav-menu">
-      <a href="Hassan.html">Home</a>
-      <a href="Services.html" class="active">Services</a>
-      <a href="about.html">About</a>
-      <a href="contact.html#contact">Contact</a>
-      <a href="Book A Service.html">Book Now</a>
-    </nav>
+    <div class="header-content">
+      <div class="logo-area">
+        <img src="Professional Barber Logo.jpg" alt="BarberX Logo" class="logo" />
+        <span class="brand-name">Professional Barber</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="homepage.html">Home</a>
+        <a href="Services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="Book A Service.html" class="active">Book Now</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Services Booking Form -->
-  <section class="services-section">
-    <h2>Book a Service</h2>
+  <!-- Main -->
+  <main>
+    <section class="booking-section">
+      <h2>Book a Service</h2>
+      <form action="https://formspree.io/f/xgvyqbol" method="POST" class="booking-form">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required placeholder="John Doe">
 
-    <form  action="https://formspree.io/f/xgvyqbol" method="POST" class="booking-form">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required placeholder="John Doe">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required placeholder="+254 712 345 678">
 
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" required placeholder="+254 712 345 678">
+        <label for="service">Choose a Service</label>
+        <select id="service" name="service" required>
+          <option value="">-- Select Service --</option>
+          <option value="Shaving and shopping">Shaving and shopping</option>
+          <option value="Beards styles and lining">Beards styles and lining</option>
+          <option value="Just for shape and hairline">Just for shape and hairline</option>
+          <option value="Hair drawing designs">Hair drawing designs</option>
+          <option value="Haircut wíth dyé">Haircut wíth dyé</option>
+          <option value="Haircut/beard and combo">Haircut/beard and combo</option>
+          <option value="Head shaving professionally">Head shaving professionally</option>
+          <option value="Home service 1h">Home service 1h</option>
+          <option value="Haircut for kids under 10ys">Haircut for kids under 10ys</option>
+          <option value="Locks and relock for kids">Locks and relock for kids</option>
+        </select>
 
-      <label for="service">Choose a Service</label>
-      <select id="service" name="service" required>
-        <option value="">-- Select Service --</option>
-        <option value="Haircut">Haircut</option>
-        <option value="Beard Trim">Beard Trim</option>
-        <option value="Shave">Shave</option>
-        <option value="Facial">Facial</option>
-      </select>
+        <label for="fee">Service Fee (KES)</label>
+        <input type="text" id="fee" name="fee" readonly placeholder="Service fee auto-filled" />
 
-      <label for="date">Preferred Date</label>
-      <input type="date" id="date" name="date" required>
+        <label for="date">Preferred Date</label>
+        <input type="date" id="date" name="date" required>
 
-      <label for="time">Preferred Time</label>
-      <input type="time" id="time" name="time" required>
+        <label for="time">Preferred Time</label>
+        <input type="time" id="time" name="time" required>
 
-      <button type="submit">Book Now</button>
-    </form>
-  </section>
-    <!-- Footer -->
+        <button type="submit">Book Now</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
   <footer>
-    &copy; 2025 Proffessional Barber. All rights reserved
+    &copy; 2025 Professional Barber. All rights reserved.
   </footer>
 
+  <!-- Script -->
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!expanded));
+    });
+
+    const servicePrices = {
+      "Shaving and shopping": 200,
+      "Beards styles and lining": 150,
+      "Just for shape and hairline": 100,
+      "Hair drawing designs": 300,
+      "Haircut wíth dyé": 450,
+      "Haircut/beard and combo": 250,
+      "Head shaving professionally": 200,
+      "Home service 1h": 300,
+      "Haircut for kids under 10ys": 70,
+      "Locks and relock for kids": 500
+    };
+
+    const serviceSelect = document.getElementById('service');
+    const feeInput = document.getElementById('fee');
+
+    serviceSelect.addEventListener('change', () => {
+      const selected = serviceSelect.value;
+      feeInput.value = servicePrices[selected] ? `${servicePrices[selected]} KES` : '';
+    });
+  </script>
 </body>
 </html>
+
+
