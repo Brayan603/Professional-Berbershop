@@ -4,41 +4,305 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Us - BarberX</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="Professional Barber Logo.jpg" type="image/x-icon" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fafafa, #e0e0e0);
+      color: #222;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    .header {
+      background-color: #111;
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .brand-name {
+      color: #ffcc00;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-menu a {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #ffcc00;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: #ffcc00;
+    }
+
+    .hamburger {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 1600;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #111;
+      padding-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: right 0.3s ease;
+      z-index: 1500;
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    .sidebar a {
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #ffcc00;
+      color: #111;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .about-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 5rem 2rem;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-text {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      animation: slideInLeft 1.2s forwards;
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    .about-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    .about-text p {
+      line-height: 1.7;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-image {
+      flex: 1;
+      min-width: 300px;
+      text-align: center;
+      animation: slideInRight 1.2s forwards;
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    .about-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .about-image img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    footer {
+      background-color: #111;
+      color: #ccc;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .about-section {
+        flex-direction: column;
+        padding: 3rem 1rem;
+      }
+
+      .about-text, .about-image {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Hamburger Button -->
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <a href="homepage.html">Home</a>
+    <a href="Services.html">Services</a>
+    <a href="about.html" class="active">About</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="Book A Service.html">Book Now</a>
+  </nav>
+
   <!-- Header -->
   <header class="header">
-    <nav class="nav-menu">
-      <a href="homepage.html">Home</a>
-      <a href="Services.html">Services</a>
-      <a href="about.html" class="active">About</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="Book A Service.html">Book Now</a>
-    </nav>
+    <div class="header-content">
+      <div class="logo-area">
+        <img src="Professional Barber Logo.jpg" alt="BarberX Logo" class="logo" />
+        <span class="brand-name">Professional Barber</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="homepage.html">Home</a>
+        <a href="Services.html">Services</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="Book A Service.html">Book Now</a>
+      </nav>
+    </div>
   </header>
 
   <!-- About Section -->
   <section class="about-section">
     <div class="about-text">
       <h2>Who We Are</h2>
-      <p>
-        <strong>BarberX</strong> is where grooming meets art. We're more than just a barbershop — we’re a creative space where precision, passion, and personal style unite.
-      </p>
-      <p>
-        With years of combined experience, our team is committed to giving every client a fresh, confident look — whether it's a classic cut, modern fade, or custom beard work.
-      </p>
+      <p><strong>Professional Barber</strong> is more than just grooming — it’s an experience. We blend creativity, craftsmanship, and culture to help you look and feel your best.</p>
+      <p>Whether it's a classic gentleman’s cut, a trendy fade, or personalized beard styling — our skilled barbers listen, advise, and tailor your look to your lifestyle.</p>
+      <p>Step into a space where tradition meets trend, and every cut tells a story of confidence, style, and individuality.</p>
     </div>
     <div class="about-image">
-      <img src="https://images.unsplash.com/photo-1603575457612-ef7e191f4a1e?auto=format&fit=crop&w=800&q=80" alt="Barbershop interior">
+      <img src="Berber Style 5.jpg" alt="Barbershop interior" />
     </div>
   </section>
 
-    <!-- Footer -->
+  <!-- Footer -->
   <footer>
-    &copy; 2025 Proffessional Barber. All rights reserved
+    &copy; 2025 Professional Barber. All rights reserved.
   </footer>
 
+  <!-- Sidebar Toggle Script -->
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      const isOpen = sidebar.classList.contains('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+  </script>
 </body>
 </html>
