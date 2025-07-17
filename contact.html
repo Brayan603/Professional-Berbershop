@@ -2,46 +2,318 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us - BarberX</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us</title>
+  <link rel="icon" href="Professional Barber Logo.jpg" type="image/x-icon" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fafafa, #e0e0e0);
+      color: #222;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    /* Header */
+    .header {
+      background-color: #111;
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .brand-name {
+      color: #ffcc00;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-menu a {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #ffcc00;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: #ffcc00;
+    }
+
+    /* Sidebar */
+    .hamburger {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 1600;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #111;
+      padding-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: right 0.3s ease;
+      z-index: 1500;
+    }
+
+    .sidebar a {
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #ffcc00;
+      color: #111;
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .header-content {
+        justify-content: space-between;
+      }
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: white;
+      max-width: 600px;
+      margin: 4rem auto;
+      padding: 2rem 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      margin-bottom: 0.5rem;
+      color: #111;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    .contact-section p {
+      margin-bottom: 1.8rem;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .contact-info {
+      text-align: left;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .contact-info div {
+      margin: 0.4rem 0;
+    }
+
+    .contact-info strong {
+      color: #ffcc00;
+    }
+
+    .whatsapp-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: #25D366;
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      box-shadow: 0 6px 10px rgba(37, 211, 102, 0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .whatsapp-button img {
+      width: 24px;
+      height: 24px;
+      filter: drop-shadow(0 0 1px #fff);
+    }
+
+    .whatsapp-button:hover,
+    .whatsapp-button:focus {
+      background-color: #128c4a;
+      box-shadow: 0 8px 15px rgba(18, 140, 74, 0.7);
+      outline: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #fff;
+      background: #111;
+      margin-top: auto;
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Hamburger Menu Button -->
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <a href="homepage.html">Home</a>
+    <a href="Services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="active">Contact Us</a>
+    <a href="Book A Service.html">Book Now</a>
+  </nav>
+
   <!-- Header -->
   <header class="header">
-    <nav class="nav-menu">
-      <a href="homepage.html">Home</a>
-      <a href="Services.html">Services</a>
-      <a href="about.html">About</a>
-      <a href="contact.html" class="active">Contact Us</a>
-      <a href="Book A Service.html">Book Now</a>
-    </nav>
+    <div class="header-content">
+      <div class="logo-area">
+        <img src="Professional Barber Logo.jpg" alt="BarberX Logo" class="logo" />
+        <span class="brand-name">Professional Barber</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="homepage.html">Home</a>
+        <a href="Services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact Us</a>
+        <a href="Book A Service.html">Book Now</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Contact Section -->
-  <section class="contact-section">
-    <h2>Get in Touch</h2>
-    <p>We’re here to answer your questions or help you book a service directly via WhatsApp. Talk to our team instantly!</p>
+  <!-- Main Section -->
+  <main>
+    <section class="contact-section" aria-labelledby="contact-title">
+      <h2 id="contact-title">Get in Touch</h2>
+      <p>We’re here to answer your questions or help you book a service directly via WhatsApp. Talk to our team instantly!</p>
 
-    <div class="contact-info">
-      <div><strong>Address:</strong> Westlands, Nairobi, Kenya</div>
-      <div><strong>Phone:</strong> +254 712 345 678</div>
-      <div><strong>Hours:</strong> Mon - Sat: 9:00am - 7:00pm</div>
-    </div>
+      <div class="contact-info">
+        <div><strong>Address:</strong> Mlolongo, Nairobi, Kenya</div>
+        <div><strong>Phone:</strong> +254 708733371</div>
+        <div><strong>Email:</strong> <a href="mailto:hassanthebaba@gmail.com" style="color:#25D366; text-decoration:none;">hassanthebaba@gmail.com</a></div>
+        <div><strong>Hours:</strong> Mon - Sat: 8:00am - 8:00pm</div>
+      </div>
 
-    <a class="whatsapp-button" 
-       href="https://wa.me/254712345678" 
-       target="_blank">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp Icon" />
-      Chat with us on WhatsApp
-    </a>
-  </section>
+      <a class="whatsapp-button" href="https://wa.me/254708733371" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp Icon" />
+        Chat with us on WhatsApp
+      </a>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
-    &copy; 2025 Proffessional Barber. All rights reserved
+    &copy; 2025 Professional Barber. All rights reserved.
   </footer>
-  
+
+  <!-- Sidebar Toggle Script -->
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!expanded));
+    });
+  </script>
+
 </body>
 </html>
