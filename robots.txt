@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://brayan603.github.io/Professional-Berbershop/sitemap.xml
