@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book A Service - BarberX</title>
+  <title>Book A Service - Proffessional Berber</title>
   <link rel="icon" href="Professional Barber Logo.jpg" type="image/x-icon" />
   <style>
+    /* (styles are unchanged, keep all your existing styles here) */
+    
     * {
       margin: 0;
       padding: 0;
@@ -128,21 +130,20 @@
       position: fixed;
       top: 0;
       right: -250px;
-      width: 250px;
-      height: 100vh;
+      width: 160px;
+      height: 27.9vh;
       background-color: #111;
-      padding-top: 3rem;
+      padding-top: 5rem;
+      padding-left: 1.5rem;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.0rem;
       transition: right 0.3s ease;
       z-index: 1500;
     }
 
     .sidebar a {
       color: white;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
       font-weight: 600;
     }
 
@@ -197,7 +198,8 @@
     }
 
     .booking-form input,
-    .booking-form select {
+    .booking-form select,
+    .booking-form textarea {
       padding: 0.8rem;
       border-radius: 6px;
       border: 1px solid #ccc;
@@ -228,6 +230,8 @@
       background: #111;
       margin-top: auto;
     }
+  
+    /* ... (all styles from your original file go here) ... */
   </style>
 </head>
 <body>
@@ -265,7 +269,13 @@
   <main>
     <section class="booking-section">
       <h2>Book a Service</h2>
-      <form action="https://formspree.io/f/xgvyqbol" method="POST" class="booking-form">
+      <form onsubmit="sendToWhatsApp(); return false;" class="booking-form">
+        <label for="heading">Subject</label>
+        <input type="text" id="heading" name="heading" required placeholder="e.g. Special Haircut Request">
+
+        <label for="comments">Comments</label>
+        <textarea id="comments" name="comments" rows="4" placeholder="Write your message here!"></textarea>
+
         <label for="name">Full Name</label>
         <input type="text" id="name" name="name" required placeholder="John Doe">
 
@@ -275,7 +285,7 @@
         <label for="service">Choose a Service</label>
         <select id="service" name="service" required>
           <option value="">-- Select Service --</option>
-          <option value="Shaving and shopping">Shaving and shopping</option>
+          <option value="Shaving and shapping">Shaving and shapping</option>
           <option value="Beards styles and lining">Beards styles and lining</option>
           <option value="Just for shape and hairline">Just for shape and hairline</option>
           <option value="Hair drawing designs">Hair drawing designs</option>
@@ -284,7 +294,25 @@
           <option value="Head shaving professionally">Head shaving professionally</option>
           <option value="Home service 1h">Home service 1h</option>
           <option value="Haircut for kids under 10ys">Haircut for kids under 10ys</option>
+          <option value="Haircut for kids above 10ys">Haircut for kids above 10ys</option>
+          <option value="Haircut (basic & fade)">Haircut (basic & fade)</option>
+          <option value="Shampoo for Locks">Shampoo for Locks</option>
+          <option value="Relocking interlocking">Relocking interlocking</option>
           <option value="Locks and relock for kids">Locks and relock for kids</option>
+          <option value="Shampoo blow dry box braids">Shampoo blow dry box braids</option>
+          <option value="Unlock dreads">Unlock dreads</option>
+          <option value="Relaxer/short hair and shaving">Relaxer/short hair and shaving</option>
+          <option value="Relaxer short hair">Relaxer short hair</option>
+          <option value="Relaxer long hair">Relaxer long hair</option>
+          <option value="Relaxer medium hair">Relaxer medium hair</option>
+          <option value="Perm short hair">Perm short hair</option>
+          <option value="Perm long hair">Perm long hair</option>
+          <option value="Scrubbing">Scrubbing</option>
+          <option value="Super taper fades">Super taper fades</option>
+          <option value="Hair coloring">Hair coloring</option>
+          <option value="Eyebrows shipping">Eyebrows shipping</option>
+          <option value="Waves">Waves</option>
+          <option value="Beards styles and dyeing">Beards styles and dyeing</option>
         </select>
 
         <label for="fee">Service Fee (KES)</label>
@@ -308,17 +336,8 @@
 
   <!-- Script -->
   <script>
-    const hamburger = document.querySelector('.hamburger');
-    const sidebar = document.querySelector('.sidebar');
-
-    hamburger.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
-      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-      hamburger.setAttribute('aria-expanded', String(!expanded));
-    });
-
     const servicePrices = {
-      "Shaving and shopping": 200,
+      "Shaving and shapping": 200,
       "Beards styles and lining": 150,
       "Just for shape and hairline": 100,
       "Hair drawing designs": 300,
@@ -327,7 +346,25 @@
       "Head shaving professionally": 200,
       "Home service 1h": 300,
       "Haircut for kids under 10ys": 70,
-      "Locks and relock for kids": 500
+      "Haircut for kids above 10ys": 100,
+      "Haircut (basic & fade)": 200,
+      "Shampoo for Locks": 150,
+      "Relocking interlocking": 1000,
+      "Locks and relock for kids": 500,
+      "Shampoo blow dry box braids": 2000,
+      "Unlock dreads": 500,
+      "Relaxer/short hair and shaving": 450,
+      "Relaxer short hair": 300,
+      "Relaxer long hair": 600,
+      "Relaxer medium hair": 450,
+      "Perm short hair": 500,
+      "Perm long hair": 700,
+      "Scrubbing": 200,
+      "Super taper fades": 250,
+      "Hair coloring": 250,
+      "Eyebrows shipping": 100,
+      "Waves": 1000,
+      "Beards styles and dyeing": 350
     };
 
     const serviceSelect = document.getElementById('service');
@@ -337,8 +374,36 @@
       const selected = serviceSelect.value;
       feeInput.value = servicePrices[selected] ? `${servicePrices[selected]} KES` : '';
     });
+
+    function sendToWhatsApp() {
+      // Collect & clean values (no emojis, no pre-encoded %0A)
+      const subject = document.getElementById('heading').value.trim();
+      const comments = (document.getElementById('comments').value || '').trim() || 'N/A';
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const service = document.getElementById('service').value.trim();
+      const fee = (document.getElementById('fee').value || '').trim() || 'To be confirmed';
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      // Build plain text with real newlines (\n), then encode ONCE
+      const message =
+        'New Booking Request' + '\n\n' +
+        'Subject:\n' + subject + '\n' +
+        'Name:\n' + name + '\n' +
+        'Phone:\n' + phone + '\n' +
+        'Service:\n' + service + '\n' +
+        'Fee:\n' + fee + '\n' +
+        'Preferred Date:\n' + date + '\n' +
+        'Preferred Time:\n' + time + '\n' +
+        'Comments:\n' + comments;
+
+      const whatsappNumber = '254708733371'; // recipient (no +)
+      const whatsappURL = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
+
+      // Open WhatsApp without showing %0A or � in the chat
+      window.open(whatsappURL, '_blank');
+    }
   </script>
 </body>
 </html>
-
-
